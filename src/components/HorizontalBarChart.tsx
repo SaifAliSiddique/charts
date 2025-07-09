@@ -8,14 +8,14 @@ import {
   Title,
   Tooltip,
   Legend,
+  ScriptableContext,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-// Chart.js modules register karwana zaroori hai
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const options = {
-  indexAxis: "y" as const, // horizontal bar chart ke liye
+  indexAxis: "y" as const,
   responsive: true,
   plugins: {
     legend: {
@@ -51,9 +51,8 @@ const data = {
     {
       label: "Change from Open",
       data: [30, -20, 10, 60, -25, 15, -10, 70],
-      backgroundColor: (context: any) => {
-        // red for negative, cyan for positive
-        const value = context.raw;
+      backgroundColor: (context: ScriptableContext<"bar">) => {
+        const value = context.raw as number;
         return value < 0 ? "#ff3d3d" : "#00ffd5";
       },
     },
